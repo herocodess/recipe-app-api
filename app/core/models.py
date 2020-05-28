@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
 # Create your models here.
 
 # manager class -  create user or superuser
+
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
@@ -19,12 +21,14 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password):
         """create and saves a new superuser"""
         user = self.create_user(email, password)
-        user.is_staff=True
-        user.is_superuser=True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
 # create model class
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     """custom user model that supports email instead of username"""
     email = models.EmailField(max_length=255, unique=True)
@@ -34,4 +38,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # assign usermanager to the objects attribute
     objects = UserManager()
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = 'email'
